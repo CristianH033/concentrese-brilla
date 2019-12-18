@@ -1,6 +1,12 @@
 <template>
   <div>
-    <transition-group name="shuffle-items" tag="div" class="malla">
+    <transition-group
+      name="shuffle-items"
+      tag="div"
+      class="malla"
+      appear
+      appear-active-class="ficha-enter-active"
+    >
       <div v-for="item in items" :key="item.id" class="item">
         <ficha :item="item" @click="select(item)"></ficha>
       </div>
@@ -83,5 +89,29 @@ export default {
 
 .shuffle-items-move {
   transition: transform 0.6s;
+}
+
+.ficha-enter-active {
+  opacity: 0;
+  animation: enter-logo 1000ms;
+}
+
+@for $i from 1 through 12 {
+  .ficha-enter-active:nth-child(#{$i}n) {
+    animation-delay: #{$i * 0.2}s;
+  }
+}
+
+@keyframes enter-logo {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+    // position: absolute;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+    // position: absolute;
+  }
 }
 </style>

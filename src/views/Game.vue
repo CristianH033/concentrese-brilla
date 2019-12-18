@@ -1,19 +1,29 @@
 <template>
   <div id="app" class="game">
     <transition name="win">
-      <div v-if="win" class="win-message">
+      <div v-show="win" class="win-message">
         <div class="message">
-          <p>🎉 Felicitaciones! 🎉</p>
+          <img
+            style="width: 150px"
+            src="@/assets/icons/fuegos-artificiales.svg"
+            alt="logo"
+          />
+          <p>Felicitaciones!</p>
           <button @click="newGame">Nuevo Juego</button>
         </div>
       </div>
     </transition>
-    <img class="logo" src="@/assets/svg/logo.svg" alt="logo" />
+    <div class="logo-pad">
+      <p>Intentos: {{ attempts }}</p>
+      <transition appear appear-active-class="logo-enter-active">
+        <img class="logo" src="@/assets/svg/logo.svg" alt="logo" />
+      </transition>
+    </div>
     <div class="pad">
       <malla></malla>
       <div class="info">
-        <p>intentos: {{ attempts }}</p>
-        <button @click="winGame">Ganar Juego</button>
+        <!-- <button @click="winGame">Ganar Juego</button> -->
+        <button @click="atras">Inicio</button>
         <button @click="newGame">Nuevo Juego</button>
       </div>
     </div>
@@ -36,12 +46,13 @@ export default {
   },
   methods: {
     newGame() {
-      // this.$store.dispatch("setWin", !this.win);
       this.$store.dispatch("newGame");
     },
     winGame() {
-      // this.$store.dispatch("setWin", !this.win);
       this.$store.dispatch("setItemsFlipped", this.$store.getters.getItems);
+    },
+    atras() {
+      this.$router.go(-1);
     }
   },
   created() {},
@@ -78,29 +89,51 @@ $delay: 1s;
   align-items: center;
   justify-content: center;
   will-change: opacity, background-color;
-  // box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
-  // padding: 20px;
-  // border-radius: 30px;
-  // text-align: center;
   font-size: 30pt;
 }
 .message {
+  max-width: 100%;
   opacity: 1;
   text-align: center;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   padding: 20px;
   border-radius: 30px;
-  text-align: center;
-  will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  will-change: backdrop-filter, transform, opacity;
+}
+.logo-pad {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .logo {
-  flex-grow: 1;
+  // flex-grow: 1;
   align-self: flex-end;
   margin: 15px;
   max-width: 300px;
   width: 100%;
 }
+
+.logo-enter-active {
+  animation: enter-logo 1s;
+}
+
+@keyframes enter-logo {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
 .pad {
   display: flex;
   flex-direction: column;
@@ -120,29 +153,27 @@ $delay: 1s;
 }
 .win-leave-active {
   transition: all $transition;
-  // transition: transform 0.5s;
 }
 .win-enter,
 .win-leave-to {
-  // transform: translateY(-100%);
   background-color: rgba(255, 255, 255, 0);
-  // opacity: 0;
 }
 
 .win-enter-active .message {
-  transition: all ($transition / 2) ($delay + ($transition / 2));
+  transition: transform ($transition) ($delay);
 }
 .win-enter .message {
-  opacity: 0;
-  transform: scale(1.1);
+  // opacity: 0;
+  // transform: scale(1.1);
+  transform: translateY(calc(50vh + 50%));
 }
 
 .win-leave-active .message {
-  transition: all ($transition / 2);
+  transition: transform $transition;
 }
 .win-leave-to .message {
-  opacity: 0;
-  transform: scale(1.1);
-  // backdrop-filter: blur(0px);
+  // opacity: 0;
+  // transform: scale(1.1);
+  transform: translateY(calc(50vh + 50%));
 }
 </style>

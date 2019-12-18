@@ -78,11 +78,14 @@ export default {
 }
 
 .flip-card-front {
-  background-color: rgb(130, 0, 190);
+  background-color: rgb(190, 0, 0);
   color: white;
 }
 .flip-card-back {
   background-color: rgb(255, 255, 255);
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
 .flip-card-front,
 .flip-card-back {
