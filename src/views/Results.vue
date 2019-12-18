@@ -1,7 +1,7 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <router-view />
-  </transition>
+  <div id="app" class="h-screen w-screen">
+    <div>resultados</div>
+  </div>
 </template>
 
 <script>

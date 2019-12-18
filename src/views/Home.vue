@@ -1,18 +1,57 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <img src="@/assets/svg/logo.svg" class="logo" alt />
+    <div class="botones">
+      <button @click="newGame">Nuevo Juego</button>
+      <button v-if="onGoingGame" @click="resumeGame">Reanudar Juego</button>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { mapGetters } from "vuex";
 export default {
-  name: "home",
-  components: {
-    HelloWorld
-  }
+  props: {},
+  data: () => ({}),
+  computed: {
+    ...mapGetters({
+      onGoingGame: "getOngoingGame"
+    })
+  },
+  methods: {
+    newGame() {
+      this.$router.push({ name: "game" });
+      this.$store.dispatch("newGame");
+    },
+    resumeGame() {
+      this.$router.push({ name: "game" });
+    }
+  },
+  created() {},
+  mounted() {}
 };
 </script>
+
+<style lang="scss" scoped>
+.home {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.logo {
+  max-width: 400px;
+  width: 100%;
+}
+.botones {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+</style>
