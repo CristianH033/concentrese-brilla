@@ -1,18 +1,6 @@
 <template>
   <div id="app" class="game">
-    <transition name="win">
-      <div v-show="win" class="win-message">
-        <div class="message">
-          <img
-            style="width: 150px"
-            src="@/assets/icons/fuegos-artificiales.svg"
-            alt="logo"
-          />
-          <p>Felicitaciones!</p>
-          <button @click="newGame">Nuevo Juego</button>
-        </div>
-      </div>
-    </transition>
+    <modal-gana :win="win" />
     <div class="logo-pad">
       <p>Intentos: {{ attempts }}</p>
       <transition appear appear-active-class="logo-enter-active">
@@ -21,9 +9,9 @@
     </div>
     <div class="pad">
       <malla></malla>
-      <div class="info">
-        <!-- <button @click="winGame">Ganar Juego</button> -->
+      <div class="buttons">
         <button @click="atras">Inicio</button>
+        <!-- <button @click="winGame">Ganar Juego</button> -->
         <button @click="newGame">Nuevo Juego</button>
       </div>
     </div>
@@ -32,10 +20,11 @@
 
 <script>
 import Malla from "../components/Malla.vue";
+import ModalGana from "../components/ModalGana.vue";
 import { mapGetters } from "vuex";
 export default {
   props: {},
-  components: { Malla },
+  components: { Malla, ModalGana },
   data: () => ({}),
   computed: {
     ...mapGetters({
@@ -76,35 +65,6 @@ $delay: 1s;
   flex-direction: row;
   justify-content: space-around;
 }
-.win-message {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 9;
-  background-color: rgba(255, 255, 255, 0.7);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  will-change: opacity, background-color;
-  font-size: 30pt;
-}
-.message {
-  max-width: 100%;
-  opacity: 1;
-  text-align: center;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  will-change: backdrop-filter, transform, opacity;
-}
 .logo-pad {
   display: flex;
   flex-direction: column;
@@ -118,11 +78,9 @@ $delay: 1s;
   max-width: 300px;
   width: 100%;
 }
-
 .logo-enter-active {
   animation: enter-logo 1s;
 }
-
 @keyframes enter-logo {
   from {
     opacity: 0;
@@ -133,47 +91,17 @@ $delay: 1s;
     transform: translateY(0%);
   }
 }
-
 .pad {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
-.info {
+.buttons {
   display: flex;
   align-items: center;
   justify-content: space-between;
   align-items: center;
   font-size: 20pt;
-}
-
-// Transitions
-.win-enter-active {
-  transition: all $transition $delay;
-}
-.win-leave-active {
-  transition: all $transition;
-}
-.win-enter,
-.win-leave-to {
-  background-color: rgba(255, 255, 255, 0);
-}
-
-.win-enter-active .message {
-  transition: transform ($transition) ($delay);
-}
-.win-enter .message {
-  // opacity: 0;
-  // transform: scale(1.1);
-  transform: translateY(calc(50vh + 50%));
-}
-
-.win-leave-active .message {
-  transition: transform $transition;
-}
-.win-leave-to .message {
-  // opacity: 0;
-  // transform: scale(1.1);
-  transform: translateY(calc(50vh + 50%));
+  padding: 15px;
 }
 </style>
