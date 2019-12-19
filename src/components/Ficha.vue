@@ -8,12 +8,7 @@
       <div class="flip-card-front">
         <img class="question" src="@/assets/icons/pregunta.svg" alt="" />
       </div>
-      <div
-        class="flip-card-back"
-        :style="{
-          'background-image': `url(${require(`@/assets/svg/${item.value}.svg`)})`
-        }"
-      >
+      <div class="flip-card-back" :style="style">
         <transition name="wrong">
           <img
             v-if="wrong"
@@ -37,6 +32,13 @@ export default {
     ...mapGetters({
       selectedItems: "getSelectedItems"
     }),
+    style() {
+      var bg = {
+        "background-image": `url(${require(`@/assets/logos/${this.item.img}`)})`
+      };
+
+      return bg;
+    },
     totalSelected() {
       return this.selectedItems.length;
     },
@@ -60,6 +62,7 @@ export default {
   border-radius: 50%;
   cursor: pointer;
   will-change: transform;
+  box-sizing: border-box;
 }
 
 .flip-card-inner {
@@ -82,8 +85,8 @@ export default {
   color: white;
 }
 .flip-card-back {
-  background-color: rgb(255, 255, 255);
-  background-size: 80%;
+  background-color: #ffffff;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }

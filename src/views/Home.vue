@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <transition appear appear-active-class="logohome-enter-active">
-      <img src="@/assets/svg/logo.svg" class="logo" alt />
+      <img src="@/assets/logos/logo.svg" class="logo" alt />
     </transition>
     <transition appear appear-active-class="btn-enter-active">
       <div class="botones">

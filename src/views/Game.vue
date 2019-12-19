@@ -4,7 +4,7 @@
     <div class="logo-pad">
       <p>Intentos: {{ attempts }}</p>
       <transition appear appear-active-class="logo-enter-active">
-        <img class="logo" src="@/assets/svg/logo.svg" alt="logo" />
+        <img class="logo" src="@/assets/logos/logo.svg" alt="logo" />
       </transition>
     </div>
     <div class="pad">

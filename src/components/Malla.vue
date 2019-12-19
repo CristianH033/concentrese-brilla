@@ -76,6 +76,7 @@ export default {
   justify-content: space-between;
   max-width: 800px;
   margin: 15px;
+  box-sizing: border-box;
 }
 
 .item {
@@ -85,6 +86,7 @@ export default {
   margin-top: 20px;
   margin-bottom: 20px;
   will-change: transform;
+  box-sizing: border-box;
 }
 
 .shuffle-items-move {
